@@ -2,22 +2,37 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  const options = {
+    acceptAllAdvertisements: true
+  }
+  async function onbtn() {
+    try {
+      const scan = await navigator.bluetooth.requestLEScan(options);
+      navigator.bluetooth.addEventListener('advertisementreceived', event => {
+        const uuids = event.uuids
+        for (const eachuuid of uuids) {
+          const myUuid = '63491bae-64fe-11ed-9022-0242ac120002' //xiaoming's uuid
+          console.log("now @", eachuuid)
+          if (myUuid === eachuuid) {
+            alert("Xiaoming is present!")
+          }
+
+        }
+      });
+    } catch(err) {
+      alert("error! " + err)
+    }
+
+  }
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Please check <code>console.log</code></h1>
+      <button onClick={onbtn}>Listen for advertisements</button>
+
     </div>
   );
 }
