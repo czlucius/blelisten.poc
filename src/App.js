@@ -12,10 +12,10 @@ function App() {
       navigator.bluetooth.addEventListener('advertisementreceived', event => {
         const uuids = event.uuids
         for (const eachuuid of uuids) {
-          const myUuid = '63491bae-64fe-11ed-9022-0242ac120002' //xiaoming's uuid
+          const myUuid = '63491bae-64fe-11ed-9022-0242ac120002' // Target/intended
           console.log("now @", eachuuid)
           if (myUuid === eachuuid) {
-            alert("Xiaoming is present!")
+            alert("UUID detected")
           }
 
         }
